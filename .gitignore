@@ -23,14 +23,6 @@ svm.jar
 *.iml
 *.ipr
 
-### NetBeans ###
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
-.nb-gradle/
-
 .DS_Store
 .vscode
 istio-1.1.1
