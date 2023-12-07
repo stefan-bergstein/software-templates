@@ -85,11 +85,11 @@ spec:
         targetPath: ./source
         values:
           githubOrg: ${{parameters.githubOrg}}
-          repoName: ${{parameters.namespace}}-photo-generator
+          repoName: ${{parameters.namespace}}-wheres-teddy
           owner: ${{parameters.owner}}
           cluster_id: ${{parameters.cluster_id}}
           namespace: ${{parameters.namespace}}
-          component_id: ${{parameters.namespace}}-photo-generator-app
+          component_id: ${{parameters.namespace}}-wheres-teddy-app
     - id: publishSource
       name: Publishing to Source Code Repository
       action: publish:github
@@ -98,7 +98,7 @@ spec:
         allowedHosts:
           - github.com
         description: ${{parameters.description}}
-        repoUrl: github.com?owner=${{parameters.githubOrg}}&repo=${{parameters.namespace}}-photo-generator
+        repoUrl: github.com?owner=${{parameters.githubOrg}}&repo=${{parameters.namespace}}-wheres-teddy
         defaultBranch: main
         protectDefaultBranch: false
         repoVisibility: public    
@@ -115,25 +115,25 @@ spec:
         url: ./manifests
         copyWithoutTemplating: []
         values:
-          component_id: ${{parameters.namespace}}-photo-generator-app
+          component_id: ${{parameters.namespace}}-wheres-teddy-app
           description: ${{parameters.description}}
-          destination: https://github.com/${{parameters.githubOrg}}/${{parameters.namespace}}-photo-generator-gitops
-          source_repository: https://github.com/${{parameters.githubOrg}}/${{parameters.namespace}}-photo-generator
-          repository_name: ${{parameters.namespace}}-photo-generator
+          destination: https://github.com/${{parameters.githubOrg}}/${{parameters.namespace}}-wheres-teddy-gitops
+          source_repository: https://github.com/${{parameters.githubOrg}}/${{parameters.namespace}}-wheres-teddy
+          repository_name: ${{parameters.namespace}}-wheres-teddy
           git_owner: ${{parameters.githubOrg}}
           cluster: ${{parameters.cluster_id}}
           namespace: ${{parameters.namespace}}
           image_host: ${{parameters.image_host}}
-          image_name: ${{parameters.namespace}}/photo-generator-app
+          image_name: ${{parameters.namespace}}/wheres-teddy-app
           image_tag: ${{parameters.image_tag}}
         targetPath: ./tenant-gitops
     - id: publishGitops
       name: Publishing to Deployment Resource Repository
       action: publish:github
       input:
-        repoUrl: github.com?owner=${{parameters.githubOrg}}&repo=${{parameters.namespace}}-photo-generator-gitops
-        title: gitops resources for ${{parameters.namespace}}-photo-generator-app
-        description: gitops resources for ${{parameters.namespace}}-photo-generator-app
+        repoUrl: github.com?owner=${{parameters.githubOrg}}&repo=${{parameters.namespace}}-wheres-teddy-gitops
+        title: gitops resources for ${{parameters.namespace}}-wheres-teddy-app
+        description: gitops resources for ${{parameters.namespace}}-wheres-teddy-app
         sourcePath: ./tenant-gitops
         defaultBranch: main
         protectDefaultBranch: false
@@ -142,10 +142,10 @@ spec:
       name: Create ArgoCD Resources
       action: argocd:create-resources
       input:
-        appName: ${{parameters.namespace}}-photo-generator-app-bootstrap
+        appName: ${{parameters.namespace}}-wheres-teddy-app-bootstrap
         argoInstance: main
         namespace: janus-argocd
-        repoUrl: https://github.com/${{parameters.githubOrg}}/${{parameters.namespace}}-photo-generator-gitops.git
+        repoUrl: https://github.com/${{parameters.githubOrg}}/${{parameters.namespace}}-wheres-teddy-gitops.git
         path: 'argocd/'
   output:
     links:
