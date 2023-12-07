@@ -50,7 +50,7 @@ spec:
           default: modelmesh-serving
         modelmesh_port:
           title: GRPC port of the inference API
-          type: string
+          type: int
           description: GRPC port of the inference API, default is internal networking
           default: 8083
         owner:
