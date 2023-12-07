@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: wheres-teddy-template
-  title: Where's Terry Python application to show Gen AI with OpenShift AI
+  title: Where's Teddy Python application to show Gen AI with OpenShift AI
   description: Python application to show Gen AI with OpenShift AI
   tags:
     - python
