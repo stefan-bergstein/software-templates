@@ -41,9 +41,9 @@ spec:
               protocol: TCP
           env:
             - name:  GRPC_HOST
-              value: {{ .Values.envs.GRPC_HOST }}
+              value: {{ .Values.env.GRPC_HOST }}
             - name:  GRPC_PORT
-              value: "{{ .Values.envs.GRPC_PORT }}"
+              value: "{{ .Values.env.GRPC_PORT }}"
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
