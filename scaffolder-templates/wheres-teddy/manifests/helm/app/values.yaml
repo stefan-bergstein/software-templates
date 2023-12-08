@@ -20,7 +20,7 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ${{values.image_tag}}
 
-envs:
+env:
   GRPC_HOST: ${{values.modelmesh_host}}
   GRPC_PORT: ${{values.modelmesh_port}}
 
