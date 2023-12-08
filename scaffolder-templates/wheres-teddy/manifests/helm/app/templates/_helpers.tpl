@@ -67,3 +67,10 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "quarkus-template.registry" -}}image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{- end -}}
+
+{{- define "helpers.list-env-variables"}}
+{{- range $key, $val := .Values.env }}
+- name: {{ $key }}
+  value: {{ $val }}
+{{- end}}
+{{- end }}

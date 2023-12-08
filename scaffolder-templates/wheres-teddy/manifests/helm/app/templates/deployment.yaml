@@ -43,7 +43,7 @@ spec:
             - name:  GRPC_HOST
               value: {{ .Values.envs.GRPC_HOST }}
             - name:  GRPC_PORT
-              value: {{ .Values.envs.GRPC_PORT }}
+              value: "{{ .Values.envs.GRPC_PORT }}"
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
