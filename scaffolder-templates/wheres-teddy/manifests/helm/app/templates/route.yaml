@@ -12,7 +12,7 @@ spec:
   {{- if .path }}
   path: {{ .path }}
   {{- end }}
-    tls:
+  tls:
     insecureEdgeTerminationPolicy: Redirect
     termination: edge
   port:
