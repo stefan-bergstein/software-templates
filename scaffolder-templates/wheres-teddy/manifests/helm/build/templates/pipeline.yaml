@@ -46,8 +46,8 @@ spec:
       runAfter:
         - git-clone
       taskRef:
-        kind: Task
-        name: kaniko-photo-generator
+        kind: ClusterTask
+        name: buildah
       workspaces:
         - name: source
           workspace: source-folder
