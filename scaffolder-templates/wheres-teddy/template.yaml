@@ -46,8 +46,8 @@ spec:
         modelmesh_host:
           title: GRPC host of the inference API
           type: string
-          description: GRPC host of the inference API, default is internal networking
-          default: modelmesh-serving
+          description: GRPC host of the inference API, default is internal networking (K8S service)
+          default: modelmesh-serving.text-to-image
         modelmesh_port:
           title: GRPC port of the inference API
           type: number
