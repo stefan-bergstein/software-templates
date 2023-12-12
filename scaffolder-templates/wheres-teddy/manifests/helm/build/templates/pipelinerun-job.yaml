@@ -18,7 +18,7 @@ spec:
           - /bin/sh
           - -c
           - |
-            tkn pipeline start {{ .Values.app.name }}-pipeline --use-param-defaults -w name=source-folder,claimName={{ .Values.app.name }}-pvc1 -w name=maven-settings,claimName={{ .Values.app.name }}-pvc2
+            tkn pipeline start {{ .Values.app.name }}-pipeline --use-param-defaults -w name=source-folder,claimName={{ .Values.app.name }}-pvc1
           env:
             - name: HOME
               value: /tekton/home
