@@ -38,7 +38,7 @@ spec:
           title: Cluster Id
           type: string
           description: Id of the cluster
-          default: .apps.wearedevs.rl97.p1.openshiftapps.com
+          default: .apps.ocp5.stormshift.coe.muc.redhat.com
         namespace: 
           title: Namespace
           type: string
