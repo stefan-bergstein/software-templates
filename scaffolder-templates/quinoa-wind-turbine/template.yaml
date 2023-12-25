@@ -23,7 +23,7 @@ spec:
         githubOrg:
           title: GitHub Organization
           type: string
-          default: WindTurbineInc
+          default: stefan-bergstein
         description:
           title: Description
           type: string
@@ -134,7 +134,7 @@ spec:
       input:
         appName: ${{parameters.namespace}}-wind-turbine-app-bootstrap
         argoInstance: main
-        namespace: janus-argocd
+        namespace: developer-hub
         repoUrl: https://github.com/${{parameters.githubOrg}}/${{parameters.namespace}}-wind-turbine-gitops.git
         path: 'argocd/'
   output:
