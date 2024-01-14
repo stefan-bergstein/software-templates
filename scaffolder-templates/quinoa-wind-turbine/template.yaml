@@ -136,7 +136,7 @@ spec:
       input:
         appName: ${{parameters.namespace}}-wind-turbine-app-bootstrap
         argoInstance: argo-rhdh
-        namespace: janus-argocd
+        namespace: argo-rhdh
         repoUrl: https://github.com/${{parameters.githubOrg}}/${{parameters.namespace}}-wind-turbine-gitops.git
         path: 'argocd/'
   output:
