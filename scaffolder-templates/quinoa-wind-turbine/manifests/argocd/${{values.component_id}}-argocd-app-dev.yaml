@@ -3,7 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: ${{values.component_id}}-dev
-  namespace: janus-argocd
+  namespace: argo-rhdh
   labels:
     argocd/app-name: ${{values.component_id}}-dev
   annotations:
