@@ -22,29 +22,14 @@ spec:
           title: Name
           type: string
           description: Unique name of the component
-          default: wind-turbine
+          default: game-secure
           ui:field: EntityNamePicker
-          maxLength: 14
-        group_id:
-          title: Group Id
-          type: string
-          default: redhat.janus
-          description: Maven Group Id
-        artifact_id:
-          title: Artifact Id
-          type: string
-          default: quarkus-app
-          description: Maven Artifact Id
-        java_package_name:
-          title: Java Package Name
-          default: org.redhat.janus
-          type: string
-          description: Name for the java package. eg (com.redhat.blah)
+          maxLength: 16
         description:
           title: Description
           type: string
           description: Help others understand what this website is for.
-          default: A cool quarkus app
+          default: Wind Turbine Game
     - title: Provide Image Registry Information
       required:
         - image_registry
@@ -126,9 +111,6 @@ spec:
           component_id: ${{ parameters.component_id }}
           description: ${{ parameters.description }}
           namespace: ${{ parameters.component_id }}-dev
-          group_id: ${{ parameters.group_id }}
-          artifact_id: ${{ parameters.artifact_id }}
-          java_package_name: ${{ parameters.java_package_name }}
           owner: ${{ user.entity.metadata.name }}
           cluster: .apps.cluster-sqlpl.sandbox2935.opentlc.com
           host: ${{ parameters.repo.host }}

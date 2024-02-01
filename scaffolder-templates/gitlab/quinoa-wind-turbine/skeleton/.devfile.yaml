@@ -1,6 +1,6 @@
 schemaVersion: 2.2.0
 metadata:
-  generateName: ${{values.artifact_id}}
+  generateName: ${{values.component_id}}
 components:
   - name: development-tooling
     container:
