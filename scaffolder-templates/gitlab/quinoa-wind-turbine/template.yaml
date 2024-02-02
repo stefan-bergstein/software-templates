@@ -9,6 +9,8 @@ metadata:
     - java
     - quarkus
     - maven
+    - kafka
+    - infinispan
 spec:
   owner: rhdh
   type: service
@@ -16,6 +18,7 @@ spec:
     - title: Provide Information for Application
       required:
         - component_id
+        - cluster_id
       properties:
         component_id:
           title: Name
@@ -29,6 +32,11 @@ spec:
           type: string
           description: Help others understand what this website is for.
           default: Wind Turbine Game
+        cluster_id:
+          title: Cluster Id
+          type: string
+          description: Id of the cluster
+          default: .apps.cluster-zbkfk.sandbox1339.opentlc.com
     - title: Provide Image Registry Information
       required:
         - image_registry
@@ -64,7 +72,7 @@ spec:
                   title: Image Host
                   type: string
                   description: Host for storing image
-                  default: quay-sqlpl.apps.cluster-sqlpl.sandbox2935.opentlc.com
+                  default: quay-sqlpl.${{parameters.cluster_id}}
                 image_organization:
                   title: Organization
                   type: string
@@ -87,7 +95,9 @@ spec:
               title: Repo Host
               type: string
               description: Your SCM host
-              default: gitlab-gitlab.apps.cluster-sqlpl.sandbox2935.opentlc.com
+              default: gitlab-gitlab.${{parameters.cluster_id}}
+              enum:
+                - gitlab-gitlab.${{parameters.cluster_id}}
             owner:
               title: Repo Owner
               type: string
