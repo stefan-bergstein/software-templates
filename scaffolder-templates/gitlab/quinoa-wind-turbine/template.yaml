@@ -3,7 +3,7 @@ kind: Template
 metadata:
   name: wind-turbine-template
   title: Wind Turbine Software Supply Chain
-  description: Create Wind Turbine game with Trusted Software Supply Chain
+  description: Create Wind Turbine game using Quarkus, Kafka and Infinispan with Trusted Software Supply Chain
   tags:
     - recommended
     - java
