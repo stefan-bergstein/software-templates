@@ -72,7 +72,7 @@ spec:
                   title: Image Host
                   type: string
                   description: Host for storing image
-                  default: quay-sqlpl.apps.cluster-zbkfk.sandbox1339.opentlc.com
+                  default: quay-zbkfk.apps.cluster-zbkfk.sandbox1339.opentlc.com
                 image_organization:
                   title: Organization
                   type: string
