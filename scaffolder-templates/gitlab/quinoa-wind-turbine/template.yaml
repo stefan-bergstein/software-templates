@@ -72,7 +72,7 @@ spec:
                   title: Image Host
                   type: string
                   description: Host for storing image
-                  default: quay-sqlpl.${{parameters.cluster_id}}
+                  default: quay-sqlpl${{ parameters.cluster_id }}
                 image_organization:
                   title: Organization
                   type: string
@@ -95,9 +95,9 @@ spec:
               title: Repo Host
               type: string
               description: Your SCM host
-              default: gitlab-gitlab.${{parameters.cluster_id}}
+              default: gitlab-gitlab${{ parameters.cluster_id }}
               enum:
-                - gitlab-gitlab.${{parameters.cluster_id}}
+                - gitlab-gitlab${{ parameters.cluster_id }}
             owner:
               title: Repo Owner
               type: string
@@ -119,7 +119,7 @@ spec:
           description: ${{ parameters.description }}
           namespace: ${{ parameters.component_id }}-dev
           owner: ${{ user.entity.metadata.name }}
-          cluster: .apps.cluster-sqlpl.sandbox2935.opentlc.com
+          cluster: ${{ parameters.cluster_id }}
           host: ${{ parameters.repo.host }}
           destination: ${{ parameters.repo.owner }}/${{ parameters.component_id }}
           quay_destination: ${{ parameters.image_organization}}/${{ parameters.component_id }}
