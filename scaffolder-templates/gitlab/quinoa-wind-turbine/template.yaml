@@ -88,8 +88,6 @@ spec:
               type: string
               description: Your SCM host
               default: gitlab-gitlab.apps.cluster-sqlpl.sandbox2935.opentlc.com
-              enum:
-                - gitlab-gitlab.apps.cluster-sqlpl.sandbox2935.opentlc.com
             owner:
               title: Repo Owner
               type: string
