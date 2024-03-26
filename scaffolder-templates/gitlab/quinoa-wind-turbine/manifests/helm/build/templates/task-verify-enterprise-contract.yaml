@@ -23,6 +23,10 @@ metadata:
     tekton.dev/displayName: Verify Enterprise Contract
     tekton.dev/pipelines.minVersion: "0.19"
     tekton.dev/tags: ec, chains, signature, conftest
+    task.results.format: application/json
+    task.results.type: ec
+    task.output.location: logs
+    task.results.container: step-report-json
   labels:
     app.kubernetes.io/version: "0.1"
 
@@ -104,14 +108,14 @@ spec:
       secret:
         secretName: $(params.COMPONENT_ID)-docker-config
         items:
-        - key: .dockerconfigjson
-          path: config.json
+          - key: .dockerconfigjson
+            path: config.json
     - name: rekor-public-key
       secret:
         secretName: rekor-public-key
         items:
-        - key: public.key
-          path: public.key
+          - key: public.key
+            path: public.key
 
   stepTemplate:
     env:
@@ -126,8 +130,8 @@ spec:
           oc get secret signing-secrets -n openshift-pipelines -o json > /workspace/signing-secrets
       command:
         - /bin/bash
-        - '-c'
-      image: 'quay.io/openshift/origin-cli:latest'
+        - "-c"
+      image: "quay.io/openshift/origin-cli:latest"
       name: extract-signing-secret
       resources: {}
     - image: quay.io/redhat-gpte/jq
@@ -174,10 +178,10 @@ spec:
         - "--output"
         - "json=$(params.HOMEDIR)/report-json.json"
       volumeMounts:
-      - name: docker-config
-        mountPath: $(params.HOMEDIR)/.docker
-      - name: rekor-public-key
-        mountPath: /rekor
+        - name: docker-config
+          mountPath: $(params.HOMEDIR)/.docker
+        - name: rekor-public-key
+          mountPath: /rekor
     - name: report
       image: quay.io/enterprise-contract/ec-cli:snapshot@sha256:33be4031a3316a46db3559a4d8566bc22f9d4d491d262d699614f32f35b45b67
       command: [cat]
