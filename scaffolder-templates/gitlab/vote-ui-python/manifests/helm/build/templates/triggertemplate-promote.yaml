@@ -25,11 +25,6 @@ spec:
         labels:
           backstage.io/kubernetes-id: {{ .Values.app.name }}
       spec:
-{{- if eq .Values.image.registry "Quay" }}
-        taskRunSpecs:
-        - pipelineTaskName: verify-enterprise-contract
-          taskServiceAccountName: job-runner
-{{- end }}
         params:
           - name: source-image
             value: $(tt.params.source-image)
@@ -49,12 +44,6 @@ spec:
             value: {{ .Values.app.name }}
           - name: common-password-secret
             value: common-password-secret
-          - name: argocd-host
-            value: argocd-server-janus-argocd{{ .Values.app.cluster }}
-          - name: policy-configuration
-            value: 'git::github.com/enterprise-contract/config//default'
-          - name: rekor-host
-            value: http://rekor-server.rekor.svc
         pipelineRef:
           name: {{ .Values.app.name }}-promote
         serviceAccountName: image-pusher

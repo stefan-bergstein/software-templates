@@ -15,27 +15,26 @@ spec:
     - name: destination-image
       description: destination image to promote to
       type: string
-      default: {{ include "image.preprod-url" . }}
+      default: {{ include "image.prod-url" . }}
     - name: source-image-tag
       type: string
       default: latest
     - name: destination-image-tag
       type: string
-      default: latest
+      default: prod
     - name: namespace
       type: string
+      default: {{ .Values.app.name }}-prod
     - description: The hostname of the git instance
       name: git-host
       type: string
-    - description: The owner of the repo
-      name: git-owner
+      default: {{ .Values.git.host }}
+    - name: git-owner
       type: string
-    - description: The name of the component
-      name: component-id
+      default: {{ .Values.git.org }}
+    - name: component-id
       type: string
-    - description: ArgoCD host
-      name: argocd-host
-      type: string
+      default: {{ .Values.app.name }}
   tasks:
     - name: copy-image-tag
       params:
