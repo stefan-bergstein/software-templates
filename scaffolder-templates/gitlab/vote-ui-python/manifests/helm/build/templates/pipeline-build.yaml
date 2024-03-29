@@ -56,8 +56,7 @@ spec:
       - name: COMPONENT_ID
         value: $(params.component-id)
       runAfter:
-      - scan-export-sbom
-      - query-rekor-signed-provenance
+      - buildah
       taskRef:
         kind: Task
         name: resync
