@@ -22,10 +22,13 @@ spec:
       type: string
     - name: git-host
       type: string
+      default: {{ .Values.git.host }}
     - name: git-owner
       type: string
+      default: {{ .Values.git.org }}
     - name: component-id
       type: string
+      default: {{ .Values.app.name }}
   tasks:
     - name: git-clone
       params:
@@ -46,7 +49,7 @@ spec:
       runAfter:
       - git-clone
       taskRef:
-        kind: Task
+        kind: ClusterTask
         name: buildah
       workspaces:
       - name: source
@@ -56,15 +59,15 @@ spec:
       - name: COMPONENT_ID
         value: $(params.component-id)
       runAfter:
-      - buildah
+      - build-image
       taskRef:
         kind: Task
         name: resync
   results:
     - name: IMAGE_URL
-      value: "$(tasks.build-sign-image.results.IMAGE_URL)"
+      value: "$(tasks.build-image.results.IMAGE_URL)"
     - name: IMAGE_DIGEST
-      value: "$(tasks.build-sign-image.results.IMAGE_DIGEST)"
+      value: "$(tasks.build-image.results.IMAGE_DIGEST)"
   workspaces:
     - name: source-folder
-    - name: docker-config
+
