@@ -35,7 +35,7 @@ spec:
           title: Cluster Id
           type: string
           description: Id of the cluster
-          default: .apps.cluster-zbkfk.sandbox1339.opentlc.com
+          default: .apps.cluster-wq6jz.sandbox1622.opentlc.com
     - title: Provide Image Registry Information
       required:
         - image_registry
@@ -94,7 +94,7 @@ spec:
               title: Repo Host
               type: string
               description: Your SCM host
-              default: gitlab-gitlab.apps.cluster-zbkfk.sandbox1339.opentlc.com
+              default: gitlab-gitlab.apps.cluster-wq6jz.sandbox1622.opentlc.com
             owner:
               title: Repo Owner
               type: string
