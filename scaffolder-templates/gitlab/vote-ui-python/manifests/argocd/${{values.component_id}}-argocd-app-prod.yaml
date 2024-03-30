@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ${{ values.component_id }}-prod
+  name: ${{ values.component_id }}-${{ values.user }}-prod
   namespace: janus-argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -15,14 +15,14 @@ spec:
     helm:
       parameters:
       - name: namespace.name
-        value: ${{ values.component_id }}-prod
+        value: ${{ values.component_id }}-${{ values.user }}-prod
       - name: environment
         value: prod
       - name: image.tag
         value: prod
   destination:
     server: https://kubernetes.default.svc
-    namespace: ${{ values.component_id }}-prod
+    namespace: ${{ values.component_id }}-${{ values.user }}-prod
   ignoreDifferences:
     - group: '*'
       jqPathExpressions:
