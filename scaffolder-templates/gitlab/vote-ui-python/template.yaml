@@ -75,7 +75,7 @@ spec:
       name: Publish
       action: publish:gitlab
       input:
-        repoUrl: "https://gitlab-gitlab.apps.cluster-7nvm5.sandbox548.opentlc.com?owner=summit-lab&repo=${{parameters.component_id}}-${{ user.entity.metadata.name }}"
+        repoUrl: "gitlab-gitlab.apps.cluster-7nvm5.sandbox548.opentlc.com?owner=summit-lab&repo=${{parameters.component_id}}-${{ user.entity.metadata.name }}"
         repoVisibility: public
 
     - id: register
