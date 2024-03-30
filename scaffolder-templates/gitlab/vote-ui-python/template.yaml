@@ -115,7 +115,7 @@ spec:
       name: Publishing to Resource Repository
       action: publish:gitlab
       input:
-        repoUrl: "https://gitlab-gitlab.apps.cluster-7nvm5.sandbox548.opentlc.com?owner=summit-lab&repo=${{parameters.component_id}}-${{ user.entity.metadata.name }}-gitops.git"
+        repoUrl: "gitlab-gitlab.apps.cluster-7nvm5.sandbox548.opentlc.com?owner=summit-lab&repo=${{parameters.component_id}}-${{ user.entity.metadata.name }}-gitops.git"
         title: gitops resources for ${{ parameters.component_id }}
         description: gitops resources for ${{ parameters.component_id }}
         sourcePath: ./tenant-gitops
@@ -128,7 +128,7 @@ spec:
         appName: ${{ parameters.component_id }}-bootstrap
         argoInstance: main
         namespace: janus-argocd
-        repoUrl: "https://gitlab-gitlab.apps.cluster-7nvm5.sandbox548.opentlc.com?owner=summit-lab&repo=${{parameters.component_id}}-${{ user.entity.metadata.name }}-gitops.git"
+        repoUrl: "gitlab-gitlab.apps.cluster-7nvm5.sandbox548.opentlc.com?owner=summit-lab&repo=${{parameters.component_id}}-${{ user.entity.metadata.name }}-gitops.git"
         path: 'argocd/'
 
   output:
