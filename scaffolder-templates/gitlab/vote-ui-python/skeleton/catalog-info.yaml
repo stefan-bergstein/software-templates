@@ -6,7 +6,7 @@ metadata:
   description: ${{values.description | dump}}
   {%- endif %}
   annotations:
-    argocd/app-selector: rht-gitops.com/janus-argocd=${{values.component_id}}-bootstrap
+    argocd/app-selector: rht-gitops.com/janus-argocd=${{values.component_id}}-${{ user.entity.metadata.name }}-bootstrap
     backstage.io/kubernetes-id: ${{values.component_id}}
     janus-idp.io/tekton: ${{values.component_id}}
     backstage.io/source-location: url:https://${{values.host}}/${{values.destination}}
