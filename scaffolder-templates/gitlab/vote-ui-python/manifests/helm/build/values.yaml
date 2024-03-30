@@ -1,6 +1,8 @@
 app:
   name: ${{values.component_id}}
-  namespace: ${{values.component_id}}-dev
+  namespace: ${{values.component_id}}-${{values.user}}-dev
+  namespaceDev: ${{values.component_id}}-${{values.user}}-dev
+  namespaceProd: ${{values.component_id}}-${{values.user}}-prod
   cluster: ${{ values.cluster }}
 
 git:
