@@ -67,7 +67,7 @@ spec:
           owner: ${{ user.entity.metadata.name }}
           cluster: ${{ parameters.cluster_id }}
           host: gitlab-gitlab.apps.cluster-7nvm5.sandbox548.opentlc.com
-          destination: summit-lab/${{ parameters.component_id }}-${{ user.entity.metadata.name }}
+          destination: ${{ user.entity.metadata.name }}/${{ parameters.component_id }}-${{ user.entity.metadata.name }}
           quay_destination: ${{ parameters.image_organization}}/${{ parameters.component_id }}
           port: 8080
 
@@ -75,7 +75,7 @@ spec:
       name: Publish
       action: publish:gitlab
       input:
-        repoUrl: "gitlab-gitlab.apps.cluster-7nvm5.sandbox548.opentlc.com?owner=summit-lab&repo=${{parameters.component_id}}-${{ user.entity.metadata.name }}"
+        repoUrl: "gitlab-gitlab.apps.cluster-7nvm5.sandbox548.opentlc.com?owner=${{ user.entity.metadata.name }}&repo=${{parameters.component_id}}-${{ user.entity.metadata.name }}"
         repoVisibility: public
 
     - id: register
@@ -94,10 +94,10 @@ spec:
         values:
           component_id: ${{ parameters.component_id }}
           description: ${{ parameters.description }}
-          destination: https://gitlab-gitlab.apps.cluster-7nvm5.sandbox548.opentlc.com/summit-lab/${{parameters.component_id}}-${{ user.entity.metadata.name }}-gitops.git
-          source_repository: https://gitlab-gitlab.apps.cluster-7nvm5.sandbox548.opentlc.com/summit-lab/${{parameters.component_id}}-${{ user.entity.metadata.name }}.git
+          destination: https://gitlab-gitlab.apps.cluster-7nvm5.sandbox548.opentlc.com/${{ user.entity.metadata.name }}/${{parameters.component_id}}-${{ user.entity.metadata.name }}-gitops.git
+          source_repository: https://gitlab-gitlab.apps.cluster-7nvm5.sandbox548.opentlc.com/${{ user.entity.metadata.name }}/${{parameters.component_id}}-${{ user.entity.metadata.name }}.git
           repository_name: ${{parameters.component_id}}-${{ user.entity.metadata.name }}
-          git_owner: summit-lab
+          git_owner: ${{ user.entity.metadata.name }}
           cluster: ${{ parameters.cluster_id }}
           namespace: ${{ parameters.component_id }}-dev
           image_registry: ${{ parameters.image_registry }}
@@ -115,7 +115,7 @@ spec:
       name: Publishing to Resource Repository
       action: publish:gitlab
       input:
-        repoUrl: "gitlab-gitlab.apps.cluster-7nvm5.sandbox548.opentlc.com?owner=summit-lab&repo=${{parameters.component_id}}-${{ user.entity.metadata.name }}-gitops"
+        repoUrl: "gitlab-gitlab.apps.cluster-7nvm5.sandbox548.opentlc.com?owner=${{ user.entity.metadata.name }}&repo=${{parameters.component_id}}-${{ user.entity.metadata.name }}-gitops"
         title: gitops resources for ${{ parameters.component_id }}
         description: gitops resources for ${{ parameters.component_id }}
         sourcePath: ./tenant-gitops
@@ -128,7 +128,7 @@ spec:
         appName: ${{ parameters.component_id }}-${{ user.entity.metadata.name }}-bootstrap
         argoInstance: main
         namespace: janus-argocd
-        repoUrl: https://gitlab-gitlab.apps.cluster-7nvm5.sandbox548.opentlc.com/summit-lab/${{ parameters.component_id }}-${{ user.entity.metadata.name }}-gitops.git
+        repoUrl: https://gitlab-gitlab.apps.cluster-7nvm5.sandbox548.opentlc.com/${{ user.entity.metadata.name }}/${{ parameters.component_id }}-${{ user.entity.metadata.name }}-gitops.git
         path: 'argocd/'
 
   output:
