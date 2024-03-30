@@ -128,7 +128,7 @@ spec:
         appName: ${{ parameters.component_id }}-${{ user.entity.metadata.name }}-bootstrap
         argoInstance: main
         namespace: janus-argocd
-        repoUrl: "https://gitlab-gitlab.apps.cluster-7nvm5.sandbox548.opentlc.com?owner=summit-lab&repo=${{parameters.component_id}}-${{ user.entity.metadata.name }}-gitops.git"
+        repoUrl: https://gitlab-gitlab.apps.cluster-7nvm5.sandbox548.opentlc.com/summit-lab/${{ parameters.component_id }}-${{ user.entity.metadata.name }}-gitops.git
         path: 'argocd/'
 
   output:
