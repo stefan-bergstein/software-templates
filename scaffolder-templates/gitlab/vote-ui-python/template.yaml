@@ -70,6 +70,7 @@ spec:
           destination: ${{ user.entity.metadata.name }}/${{ parameters.component_id }}-${{ user.entity.metadata.name }}
           quay_destination: ${{ parameters.image_organization}}/${{ parameters.component_id }}
           port: 8080
+          user: ${{ user.entity.metadata.name }}
 
     - id: publish
       name: Publish
