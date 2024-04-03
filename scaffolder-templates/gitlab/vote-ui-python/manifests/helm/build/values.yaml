@@ -20,4 +20,5 @@ image:
   organization: ${{values.image_organization}}
   host: ${{ values.image_host }}
   name: ${{ values.image_name }}
+  user: ${{ values.user }}
   tag: ${{ values.image_tag }}

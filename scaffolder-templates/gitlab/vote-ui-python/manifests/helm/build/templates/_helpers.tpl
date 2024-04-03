@@ -6,7 +6,7 @@ Image Url image will be pushed to defaults to internal registry
 {{- if eq .registry "Quay" }}
 {{- printf "%s/%s/%s" .host .organization .name }}
 {{- else }}
-{{- printf "%s/%s-dev/%s" .host .name .name }}
+{{- printf "%s/%s-%s-dev/%s" .host .name .user .name }}
 {{- end }}
 {{- end }}
 {{- end }}
@@ -21,12 +21,12 @@ Image Url image will be pushed to defaults to internal registry
 
 {{- define "image.preprod-url" -}}
 {{- with .Values.image }}
-{{- printf "%s/%s-preprod/%s" .host .name .name }}
+{{- printf "%s/%s-%s-preprod/%s" .host .name .user .name }}
 {{- end }}
 {{- end }}
 
 {{- define "image.prod-url" -}}
 {{- with .Values.image }}
-{{- printf "%s/%s-prod/%s" .host .name .name }}
+{{- printf "%s/%s-%s-prod/%s" .host .name .user .name }}
 {{- end }}
 {{- end }}
