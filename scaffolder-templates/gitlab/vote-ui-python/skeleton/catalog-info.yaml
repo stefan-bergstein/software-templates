@@ -17,7 +17,7 @@ metadata:
     - python
     - frontend
   links:
-    - url: https://console-openshift-console${{values.cluster_id}}/dev-pipelines/ns/${{values.namespace}}/
+    - url: https://console-openshift-console${{values.cluster}}/dev-pipelines/ns/${{values.namespace}}/
       title: Pipelines
       icon: web
     - url: https://devspaces${{values.cluster}}/#https://${{values.host}}/${{values.destination}}
