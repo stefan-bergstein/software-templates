@@ -67,7 +67,7 @@ spec:
           owner: ${{ user.entity.metadata.name }}
           cluster: ${{ parameters.cluster_id }}
           host: gitlab-gitlab.apps.cluster-7nvm5.sandbox548.opentlc.com
-          destination: ${{ user.entity.metadata.name }}/${{ parameters.component_id }}-${{ user.entity.metadata.name }}
+          destination: ${{ user.entity.metadata.name }}/${{ parameters.component_id }}
           quay_destination: ${{ parameters.image_organization}}/${{ parameters.component_id }}
           port: 8080
           user: ${{ user.entity.metadata.name }}
