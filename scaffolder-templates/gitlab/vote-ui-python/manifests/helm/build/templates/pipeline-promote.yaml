@@ -35,6 +35,13 @@ spec:
     - name: component-id
       type: string
       default: {{ .Values.app.name }}
+    - description: Common password used in demo
+      name: common-password-secret
+      type: string
+    - description: ArgoCD host
+      name: argocd-host
+      type: string
+      default: argocd-server-janus-argocd{{ .Values.app.cluster }}
   tasks:
     - name: copy-image-tag
       params:
@@ -70,5 +77,26 @@ spec:
       workspaces:
         - name: images-url
           workspace: images-url
+    - name: patch-deployment
+      params:
+        - name: namespace
+          value: $(params.namespace)
+        - name: git-host
+          value:  $(params.git-host)
+        - name: git-owner
+          value:  $(params.git-owner)
+        - name: component-id
+          value:  $(params.component-id)
+        - name: common-password-secret
+          value:  $(params.common-password-secret)
+        - name: image-tag
+          value: $(params.destination-image-tag)
+        - name: argocd-host
+          value:  $(params.argocd-host)
+      taskRef:
+        kind: Task
+        name: update-deployment
+      runAfter:
+        - quay-tag-promote
   workspaces:
     - name: images-url
