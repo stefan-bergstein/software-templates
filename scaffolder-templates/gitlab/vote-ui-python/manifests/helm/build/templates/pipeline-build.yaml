@@ -58,6 +58,8 @@ spec:
       params:
       - name: COMPONENT_ID
         value: $(params.component-id)
+      - name: ENV
+        value: dev
       runAfter:
       - build-image
       taskRef:

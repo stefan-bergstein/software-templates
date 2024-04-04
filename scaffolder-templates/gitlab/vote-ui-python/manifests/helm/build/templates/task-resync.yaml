@@ -7,11 +7,15 @@ spec:
     - description: The component id
       name: COMPONENT_ID
       type: string
+    - description: The component id
+      name: ENV
+      type: string
+      default: dev
   steps:
     - args:
         - >-
-          oc delete pod -n $(params.COMPONENT_ID)-dev -l
-          app.kubernetes.io/instance=$(params.COMPONENT_ID)-dev
+          oc delete pod -n $(params.COMPONENT_ID)-$(params.ENV) -l
+          app.kubernetes.io/instance=$(params.COMPONENT_ID)-$(params.ENV)
       command:
         - /bin/bash
         - '-c'
