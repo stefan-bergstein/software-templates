@@ -97,6 +97,6 @@ spec:
         kind: Task
         name: update-deployment
       runAfter:
-        - quay-tag-promote
+        - copy-image-latest
   workspaces:
     - name: images-url

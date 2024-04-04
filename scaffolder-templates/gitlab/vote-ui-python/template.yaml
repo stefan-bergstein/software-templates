@@ -97,7 +97,7 @@ spec:
           description: ${{ parameters.description }}
           destination: https://gitlab-gitlab.apps.cluster-x49dg.sandbox1352.opentlc.com/${{ user.entity.metadata.name }}/${{parameters.component_id}}-gitops.git
           source_repository: https://gitlab-gitlab.apps.cluster-x49dg.sandbox1352.opentlc.com/${{ user.entity.metadata.name }}/${{parameters.component_id}}.git
-          repository_name: ${{parameters.component_id}}-${{ user.entity.metadata.name }}
+          repository_name: ${{parameters.component_id}}
           git_owner: ${{ user.entity.metadata.name }}
           cluster: ${{ parameters.cluster_id }}
           namespace: ${{ parameters.component_id }}-dev
