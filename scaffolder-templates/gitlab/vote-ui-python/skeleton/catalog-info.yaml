@@ -29,15 +29,15 @@ spec:
   type: service
   lifecycle: production
   owner: ${{values.owner | dump}}
-  system: coolstore-voting-app-${{values.owner | dump}}
+  system: vote-app-${{values.owner | dump}}
   consumesApis:
-    - vote-api-${{values.owner | dump}}
+    - vote-api-${{values.owner}}
 apiVersion: backstage.io/v1alpha1
 kind: System
 metadata:
-  name: voting-app-${{values.owner | dump}}
+  name: vote-app-${{values.owner}}
   tags:
-    - voting
+    - vote
     - python
     - go
     - openshift
