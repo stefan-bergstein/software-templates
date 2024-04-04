@@ -107,7 +107,7 @@ spec:
           image_name: ${{ parameters.component_id }}
           image_tag: ${{ parameters.image_tag }}
           port: 8080
-          repository_host: gitlab-gitlab.apps.cluster-7nvm5.sandbox548.opentlc.com
+          repository_host: gitlab-gitlab.apps.cluster-x49dg.sandbox1352.opentlc.com
           deployment_name: vote-ui
           user: ${{ user.entity.metadata.name }}
         targetPath: ./tenant-gitops
