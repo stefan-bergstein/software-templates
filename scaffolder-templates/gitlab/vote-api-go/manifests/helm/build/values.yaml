@@ -1,8 +1,8 @@
 app:
   name: ${{values.component_id}}
-  namespace: ${{values.component_id}}-dev
-  namespaceDev: ${{values.component_id}}-dev
-  namespaceProd: ${{values.component_id}}-prod
+  namespace: vote-app-dev
+  namespaceDev: vote-app-dev
+  namespaceProd: vote-app-prod
   cluster: ${{ values.cluster }}
 
 git:

@@ -5,7 +5,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: image-pusher
-    namespace: ${{values.component_id}}-dev
+    namespace: vote-app-dev
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
