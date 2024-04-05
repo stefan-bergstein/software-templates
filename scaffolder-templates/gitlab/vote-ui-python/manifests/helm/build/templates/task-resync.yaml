@@ -7,14 +7,13 @@ spec:
     - description: The component id
       name: COMPONENT_ID
       type: string
-    - description: The component id
-      name: ENV
+    - description: The namespace
+      name: NAMESPACE
       type: string
-      default: dev
   steps:
     - args:
         - >-
-          oc delete pod -n vote-app-$(params.ENV) -l
+          oc delete pod -n $(params.NAMESPACE) -l
           app.kubernetes.io/instance=$(params.COMPONENT_ID)-$(params.ENV)
       command:
         - /bin/bash

@@ -82,8 +82,8 @@ spec:
       params:
       - name: COMPONENT_ID
         value: $(params.app-name)-$(params.git-owner)
-      - name: ENV
-        value: prod
+      - name: NAMESPACE
+        value: $(params.namespace)
       runAfter:
       - build-image
       taskRef:
