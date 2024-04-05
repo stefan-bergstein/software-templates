@@ -14,7 +14,7 @@ spec:
     - args:
         - >-
           oc delete pod -n $(params.NAMESPACE) -l
-          app.kubernetes.io/instance=$(params.COMPONENT_ID)-$(params.ENV)
+          app.kubernetes.io/instance=$(params.COMPONENT_ID)
       command:
         - /bin/bash
         - '-c'

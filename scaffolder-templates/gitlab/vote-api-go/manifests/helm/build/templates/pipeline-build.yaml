@@ -60,7 +60,7 @@ spec:
     - name: resync
       params:
       - name: COMPONENT_ID
-        value: $(params.component-id)
+        value: $(params.component-id)-dev
       - name: NAMESPACE
         value: $(params.namespace)
       runAfter:

@@ -81,7 +81,7 @@ spec:
     - name: resync
       params:
       - name: COMPONENT_ID
-        value: $(params.app-name)-$(params.git-owner)
+        value: $(params.app-name)-$(params.git-owner)-prod
       - name: NAMESPACE
         value: $(params.namespace)
       runAfter:
