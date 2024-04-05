@@ -30,7 +30,7 @@ spec:
   lifecycle: production
   owner: ${{values.owner | dump}}
   system: vote-app-${{values.owner}}
-  producesApis:
+  providesApis:
     - vote-api-${{values.owner}}
 ---
 apiVersion: backstage.io/v1alpha1
