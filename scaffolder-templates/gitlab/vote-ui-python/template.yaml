@@ -63,7 +63,7 @@ spec:
         values:
           component_id: ${{ parameters.component_id }}-${{ user.entity.metadata.name }}
           description: ${{ parameters.description }}
-          namespace: vote-app-${{ user.entity.metadata.name }}-dev
+          namespace: vote-app-dev-${{ user.entity.metadata.name }}
           owner: ${{ user.entity.metadata.name }}
           cluster: ${{ parameters.cluster_id }}
           host: gitlab-gitlab.apps.cluster-6t96w.sandbox908.opentlc.com
@@ -100,7 +100,7 @@ spec:
           repository_name: ${{parameters.component_id}}
           git_owner: ${{ user.entity.metadata.name }}
           cluster: ${{ parameters.cluster_id }}
-          namespace: vote-app-dev
+          namespace: vote-app-dev-${{ user.entity.metadata.name }}
           image_registry: ${{ parameters.image_registry }}
           image_host: ${{ parameters.image_host }}
           image_organization: ${{ parameters.image_organization }}
