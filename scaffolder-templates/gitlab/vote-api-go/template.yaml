@@ -1,8 +1,8 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: vote-backend-python
-  title: Go Backend for the Vote App
+  name: vote-backend-go
+  title: Go API backend for the Vote App
   description: Creates the Backend for the Vote App in Python with Tekton Pipelines and Argo CD Applications
   tags:
     - go

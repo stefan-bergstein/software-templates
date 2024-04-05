@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: vote-frontend-python
-  title: Python frontend for the Vote App
+  title: Python UI frontend for the Vote App
   description: Creates the frontend for the Vote App in Python with Tekton Pipelines and Argo CD Applications
   tags:
     - python
