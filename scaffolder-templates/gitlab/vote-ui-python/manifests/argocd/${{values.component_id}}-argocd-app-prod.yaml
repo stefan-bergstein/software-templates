@@ -15,14 +15,14 @@ spec:
     helm:
       parameters:
       - name: namespace.name
-        value: vote-app-prod
+        value: vote-app-prod-${{ values.owner }}
       - name: environment
         value: prod
       - name: image.tag
         value: prod
   destination:
     server: https://kubernetes.default.svc
-    namespace: vote-app-prod
+    namespace: vote-app-prod-${{ values.owner }}
   ignoreDifferences:
     - group: '*'
       jqPathExpressions:

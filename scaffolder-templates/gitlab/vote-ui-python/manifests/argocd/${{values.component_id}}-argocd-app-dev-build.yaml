@@ -16,7 +16,7 @@ spec:
     path: ./helm/build
   destination:
     server: https://kubernetes.default.svc
-    namespace: vote-app-dev
+    namespace: ${{ values.namespace }}
   ignoreDifferences:
     - group: '*'
       jqPathExpressions:
