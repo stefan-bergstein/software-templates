@@ -32,6 +32,8 @@ spec:
   system: vote-app-${{values.owner}}
   consumesApis:
     - vote-api-${{values.owner}}
+  dependsOn:
+    - component:default/vote-api-${{values.owner}}
 ---
 apiVersion: backstage.io/v1alpha1
 kind: System
