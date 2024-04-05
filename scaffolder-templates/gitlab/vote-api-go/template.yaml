@@ -11,7 +11,7 @@ metadata:
     - argo
     - vote
 spec:
-  owner: redhat-developer-advocates
+  owner: rhdh
   type: service
   parameters:
     - title: Provide Information for Application
