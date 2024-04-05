@@ -45,7 +45,6 @@ metadata:
 spec:
   owner: ${{values.owner | dump}}
 ---
----
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
