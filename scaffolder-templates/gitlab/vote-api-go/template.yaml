@@ -69,7 +69,7 @@ spec:
           host: gitlab-gitlab.apps.cluster-6t96w.sandbox908.opentlc.com
           destination: ${{ user.entity.metadata.name }}/${{ parameters.component_id }}
           quay_destination: ${{ parameters.image_organization}}/${{ parameters.component_id }}
-          port: 8080
+          port: 9000
           user: ${{ user.entity.metadata.name }}
 
     - id: publish
