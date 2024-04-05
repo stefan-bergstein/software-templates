@@ -23,7 +23,7 @@ spec:
           title: Name
           type: string
           description: Unique name of the component
-          default: vote-ui
+          default: vote-api
           ui:field: EntityNamePicker
           maxLength: 16
         description:
