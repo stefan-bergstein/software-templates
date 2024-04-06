@@ -2,53 +2,53 @@ schemaVersion: 2.2.0
 metadata:
   generateName: ${{values.component_id}}
 components:
-  - name: development-tooling
+  - name: tools
     container:
-      image: quay.io/devfile/universal-developer-image:ubi8-277c10c
+      image: quay.io/devfile/universal-developer-image:ubi8-latest
       env:
-        - name: QUARKUS_HTTP_HOST
-          value: 0.0.0.0
-        - name: MAVEN_OPTS
-          value: "-Dmaven.repo.local=/home/user/.m2/repository"
-      memoryLimit: 5Gi
-      cpuLimit: 2500m
-      volumeMounts:
-        - name: m2
-          path: /home/user/.m2
+        - name: GOPATH
+          value: /projects:/home/user/go
+        - name: GOCACHE
+          value: /tmp/.cache
       endpoints:
-        - name: quarkus-dev
-          targetPort: 8080
-          exposure: public
-          secure: false
-          protocol: https
-          path: hello
-        - name: debug
-          targetPort: 5005
-          exposure: none
-          secure: false
-          protocol: tcp
-        - name: tests
-          targetPort: 8081
-          exposure: none
-          secure: false
-          protocol: tcp
-  - name: m2
-    volume:
-      size: 1G
+        - name: 9000-http
+          targetPort: 9000
+          protocol: http
+      memoryLimit: 2Gi
+      mountSources: true
+
 commands:
-  - id: package
+  - id: run-api
     exec:
-      label: "1. Package the application"
-      component: development-tooling
-      commandLine: "./mvnw package"
-      group:
-        kind: build
-        isDefault: true
-  - id: start-dev
-    exec:
-      label: "2. Start Development mode (Hot reload + debug)"
-      component: development-tooling
-      commandLine: "./mvnw compile quarkus:dev"
+      label: "1.1 Run api"
+      component: tools
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: "go get -d && go run main.go"
       group:
         kind: run
-        isDefault: true
+
+  - id: stop-api
+    exec:
+      label: "1.2 Stop api"
+      component: tools
+      commandLine: "kill $(pidof go)"
+      group:
+        kind: run
+
+  - id: test-outyet
+    exec:
+      label: "1.3 Test api"
+      component: tools
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: "go test"
+      group:
+        kind: test
+
+  - id: run-current-file
+    exec:
+      label: "Run current file"
+      component: tools
+      workingDir: ${fileDirname}
+      commandLine: "go get -d && go run ${file}"
+      group:
+        kind: run
