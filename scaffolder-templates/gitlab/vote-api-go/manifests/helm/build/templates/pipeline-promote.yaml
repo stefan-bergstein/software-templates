@@ -24,7 +24,7 @@ spec:
       default: prod
     - name: namespace
       type: string
-      default: {{ .Values.app.name }}-prod
+      default: {{ .Values.app.namespaceProd }}
     - description: The hostname of the git instance
       name: git-host
       type: string
