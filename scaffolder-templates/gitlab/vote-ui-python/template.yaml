@@ -60,6 +60,7 @@ spec:
         url: ./skeleton
         copyWithoutTemplating:
           - .github/workflows/*
+          - templates/index.html
         values:
           component_id: ${{ parameters.component_id }}-${{ user.entity.metadata.name }}
           description: ${{ parameters.description }}
