@@ -45,7 +45,7 @@ spec:
           - name: common-password-secret
             value: common-password-secret
         pipelineRef:
-          name: {{ .Values.app.name }}-promote
+          name: {{ .Values.image.name }}-promote
         serviceAccountName: image-pusher
         timeout: 1h0m0s
         workspaces:

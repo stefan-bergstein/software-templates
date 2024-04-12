@@ -2,7 +2,7 @@
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
-  name: {{ .Values.app.name }}-run-promote
+  name: {{ .Values.image.name }}-run-promote
 spec:
   params:
     - name: source-image
