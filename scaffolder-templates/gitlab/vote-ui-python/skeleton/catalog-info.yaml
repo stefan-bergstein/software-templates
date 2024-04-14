@@ -12,11 +12,13 @@ metadata:
     backstage.io/source-location: url:https://${{values.host}}/${{values.destination}}
     backstage.io/techdocs-ref: url:https://${{values.host}}/${{values.destination}}
     gitlab.com/project-slug: ${{values.destination}}
-    quay.io/repository-slug: ${{values.quay_destination | dump}}
   tags:
     - python
     - frontend
   links:
+    - url: https://console-openshift-console${{values.cluster}}/dev-pipelines/ns/${{values.namespace}}/
+      title: Pipelines
+      icon: web
     - url: https://devspaces${{values.cluster}}/#https://${{values.host}}/${{values.destination}}
       title: OpenShift Dev Spaces (VS Code)
       icon: web
@@ -27,5 +29,21 @@ spec:
   type: service
   lifecycle: production
   owner: ${{values.owner | dump}}
-  providesApis:
-    - ${{values.component_id | dump}}
+  system: vote-app-${{values.owner}}
+  consumesApis:
+    - vote-api-${{values.owner}}
+  dependsOn:
+    - component:default/vote-api-${{values.owner}}
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: vote-app-${{values.owner}}
+  tags:
+    - vote
+    - python
+    - go
+    - openshift
+spec:
+  owner: ${{values.owner | dump}}
+

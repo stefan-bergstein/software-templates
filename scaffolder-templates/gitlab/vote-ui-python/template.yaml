@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: vote-frontend-python
-  title: Python frontend for the Vote App
+  title: Python UI frontend for the Vote App
   description: Creates the frontend for the Vote App in Python with Tekton Pipelines and Argo CD Applications
   tags:
     - python
@@ -11,7 +11,7 @@ metadata:
     - argo
     - vote
 spec:
-  owner: redhat-developer-advocates
+  owner: rhdh
   type: service
   parameters:
     - title: Provide Information for Application
@@ -35,73 +35,22 @@ spec:
           title: Cluster Id
           type: string
           description: Id of the cluster
-          default: .apps.cluster-wq6jz.sandbox1622.opentlc.com
+          default: .apps.cluster-m2nch.sandbox2388.opentlc.com
     - title: Provide Image Registry Information
       required:
-        - image_registry
+        - image_host
+        - image_tag
       properties:
-        image_registry:
-          title: Image Registry
+        image_host:
+          title: Image Host
           type: string
-          enum:
-            - Openshift
-            - Quay
-      dependencies:
-        image_registry:
-          oneOf:
-            - properties:
-                image_registry:
-                  enum:
-                    - Openshift
-                image_host:
-                  title: Image Host
-                  type: string
-                  description: Host for storing image
-                  default: image-registry.openshift-image-registry.svc:5000
-                image_tag:
-                  title: Image Tag
-                  default: latest
-                  type: string
-                  description: Build Image tag
-            - properties:
-                image_registry:
-                  enum:
-                    - Quay
-                image_host:
-                  title: Image Host
-                  type: string
-                  description: Host for storing image
-                  default: quay-zbkfk.apps.cluster-zbkfk.sandbox1339.opentlc.com
-                image_organization:
-                  title: Organization
-                  type: string
-                  description: Name of the Quay Organization
-                  default: quayadmin
-                image_tag:
-                  title: Image Tag
-                  default: latest
-                  type: string
-                  description: Build Image tag
-    - title: Application repository Information
-      required:
-        - repo
-      properties:
-        repo:
-          title: Repository Location
-          type: object
-          properties:
-            host:
-              title: Repo Host
-              type: string
-              description: Your SCM host
-              default: gitlab-gitlab.apps.cluster-wq6jz.sandbox1622.opentlc.com
-            owner:
-              title: Repo Owner
-              type: string
-              description: Your SCM host organization/group
-              default: development
-              enum:
-                - development
+          description: Host for storing image
+          default: image-registry.openshift-image-registry.svc:5000
+        image_tag:
+          title: Image Tag
+          default: latest
+          type: string
+          description: Build Image tag
 
   steps:
     - id: template
@@ -111,22 +60,24 @@ spec:
         url: ./skeleton
         copyWithoutTemplating:
           - .github/workflows/*
+          - templates/index.html
         values:
-          component_id: ${{ parameters.component_id }}
+          component_id: ${{ parameters.component_id }}-${{ user.entity.metadata.name }}
           description: ${{ parameters.description }}
-          namespace: ${{ parameters.component_id }}-dev
+          namespace: vote-app-dev-${{ user.entity.metadata.name }}
           owner: ${{ user.entity.metadata.name }}
           cluster: ${{ parameters.cluster_id }}
-          host: ${{ parameters.repo.host }}
-          destination: ${{ parameters.repo.owner }}/${{ parameters.component_id }}
+          host: gitlab-gitlab.apps.cluster-m2nch.sandbox2388.opentlc.com
+          destination: ${{ user.entity.metadata.name }}/${{ parameters.component_id }}
           quay_destination: ${{ parameters.image_organization}}/${{ parameters.component_id }}
           port: 8080
+          user: ${{ user.entity.metadata.name }}
 
     - id: publish
       name: Publish
       action: publish:gitlab
       input:
-        repoUrl: "${{ parameters.repo.host }}?owner=${{ parameters.repo.owner }}&repo=${{parameters.component_id}}"
+        repoUrl: "gitlab-gitlab.apps.cluster-m2nch.sandbox2388.opentlc.com?owner=${{ user.entity.metadata.name }}&repo=${{parameters.component_id}}"
         repoVisibility: public
 
     - id: register
@@ -143,22 +94,22 @@ spec:
         url: ./manifests
         copyWithoutTemplating: []
         values:
-          component_id: ${{ parameters.component_id }}
+          component_id: ${{ parameters.component_id }}-${{ user.entity.metadata.name }}
           description: ${{ parameters.description }}
-          destination: https://${{ parameters.repo.host }}/${{ parameters.repo.owner }}/${{parameters.component_id}}-gitops.git
-          source_repository: https://${{ parameters.repo.host }}/${{ parameters.repo.owner }}/${{parameters.component_id}}.git
+          destination: https://gitlab-gitlab.apps.cluster-m2nch.sandbox2388.opentlc.com/${{ user.entity.metadata.name }}/${{parameters.component_id}}-gitops.git
+          source_repository: https://gitlab-gitlab.apps.cluster-m2nch.sandbox2388.opentlc.com/${{ user.entity.metadata.name }}/${{parameters.component_id}}.git
           repository_name: ${{parameters.component_id}}
-          git_owner: ${{ parameters.repo.owner }}
+          git_owner: ${{ user.entity.metadata.name }}
           cluster: ${{ parameters.cluster_id }}
-          namespace: ${{ parameters.component_id }}-dev
+          namespace: vote-app-dev-${{ user.entity.metadata.name }}
           image_registry: ${{ parameters.image_registry }}
           image_host: ${{ parameters.image_host }}
           image_organization: ${{ parameters.image_organization }}
           image_name: ${{ parameters.component_id }}
           image_tag: ${{ parameters.image_tag }}
           port: 8080
-          repository_host: ${{ parameters.repo.host }}
-          deployment_name: quarkus-template
+          repository_host: gitlab-gitlab.apps.cluster-m2nch.sandbox2388.opentlc.com
+          deployment_name: vote-ui
           user: ${{ user.entity.metadata.name }}
         targetPath: ./tenant-gitops
 
@@ -166,7 +117,7 @@ spec:
       name: Publishing to Resource Repository
       action: publish:gitlab
       input:
-        repoUrl: "${{ parameters.repo.host }}?owner=${{ parameters.repo.owner }}&repo=${{parameters.component_id}}-gitops"
+        repoUrl: "gitlab-gitlab.apps.cluster-m2nch.sandbox2388.opentlc.com?owner=${{ user.entity.metadata.name }}&repo=${{parameters.component_id}}-gitops"
         title: gitops resources for ${{ parameters.component_id }}
         description: gitops resources for ${{ parameters.component_id }}
         sourcePath: ./tenant-gitops
@@ -176,10 +127,10 @@ spec:
       name: Create ArgoCD Resources
       action: argocd:create-resources
       input:
-        appName: ${{ parameters.component_id }}-bootstrap
+        appName: ${{ parameters.component_id }}-${{ user.entity.metadata.name }}-bootstrap
         argoInstance: main
         namespace: janus-argocd
-        repoUrl: https://${{ parameters.repo.host }}/${{ parameters.repo.owner }}/${{ parameters.component_id }}-gitops.git
+        repoUrl: https://gitlab-gitlab.apps.cluster-m2nch.sandbox2388.opentlc.com/${{ user.entity.metadata.name }}/${{ parameters.component_id }}-gitops.git
         path: 'argocd/'
 
   output:

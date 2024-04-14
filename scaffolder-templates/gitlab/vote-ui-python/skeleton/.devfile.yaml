@@ -1,54 +1,35 @@
 schemaVersion: 2.2.0
 metadata:
-  generateName: ${{values.component_id}}
+  generateName: vote-ui-
 components:
-  - name: development-tooling
+  - name: python
     container:
-      image: quay.io/devfile/universal-developer-image:ubi8-277c10c
+      image: quay.io/devfile/universal-developer-image:ubi8-latest
       env:
-        - name: QUARKUS_HTTP_HOST
-          value: 0.0.0.0
-        - name: MAVEN_OPTS
-          value: "-Dmaven.repo.local=/home/user/.m2/repository"
-      memoryLimit: 5Gi
-      cpuLimit: 2500m
-      volumeMounts:
-        - name: m2
-          path: /home/user/.m2
+        - name: VOTING_API_SERVICE_HOST
+          value: vote-api
+        - name: VOTING_API_SERVICE_PORT
+          value: '9000'
+      cpuRequest: '30m'
+      memoryRequest: '256Mi'
+      cpuLimit: '1'
+      memoryLimit: '2Gi'
       endpoints:
-        - name: quarkus-dev
+        - name: vote-ui
           targetPort: 8080
-          exposure: public
-          secure: false
-          protocol: https
-          path: hello
-        - name: debug
-          targetPort: 5005
-          exposure: none
-          secure: false
-          protocol: tcp
-        - name: tests
-          targetPort: 8081
-          exposure: none
-          secure: false
-          protocol: tcp
-  - name: m2
-    volume:
-      size: 1G
 commands:
-  - id: package
+  - id: run-python-app
     exec:
-      label: "1. Package the application"
-      component: development-tooling
-      commandLine: "./mvnw package"
-      group:
-        kind: build
-        isDefault: true
-  - id: start-dev
+      label: Run Python App
+      component: python
+      commandLine: python app.py
+  - id: install-dependencies
     exec:
-      label: "2. Start Development mode (Hot reload + debug)"
-      component: development-tooling
-      commandLine: "./mvnw compile quarkus:dev"
-      group:
-        kind: run
-        isDefault: true
+      label: Install Dependencies
+      component: python
+      commandLine: pip install --user -r requirements.txt
+  - id: build-image
+    exec:
+      label: Build Container Image
+      component: python
+      commandLine: podman build .
