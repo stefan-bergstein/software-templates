@@ -169,6 +169,7 @@ spec:
           repository_host: ${{ parameters.repo.host }}
           deployment_name: quarkus-template
           user: ${{ user.entity.metadata.name }}
+          verify_commits: ${{ parameters.repo.verify_commits }}
         targetPath: ./tenant-gitops
 
     - id: publish-gitops
