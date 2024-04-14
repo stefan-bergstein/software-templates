@@ -103,6 +103,14 @@ spec:
               default: development
               enum:
                 - development
+            verify_commits:
+              title: Verify Commits
+              type: string
+              description: Verify Git repository commits using Red Hat’s Trusted Artifact Signer (TAS) service
+              default: disabled
+              enum:
+                - enabled
+                - disabled
 
   steps:
     - id: template
@@ -161,6 +169,7 @@ spec:
           repository_host: ${{ parameters.repo.host }}
           deployment_name: quarkus-template
           user: ${{ user.entity.metadata.name }}
+          verify_commits: ${{ parameters.repo.verify_commits }}
         targetPath: ./tenant-gitops
 
     - id: publish-gitops

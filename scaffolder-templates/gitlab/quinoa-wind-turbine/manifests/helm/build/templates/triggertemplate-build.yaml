@@ -13,6 +13,8 @@ spec:
     - name: output-image
       description: reference of the image that will get created
       default: {{ include "image.dev-url" . }}
+    - name: git-committer
+      description: Email of user who committed the change
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
@@ -50,6 +52,12 @@ spec:
             value: common-password-secret
           - name: rekor-url
             value: http://rekor-server.rekor-system.svc
+          - name: tuf-mirror
+            value: http://tuf-server.tuf-system.svc
+          - name: certificate-identity
+            value: $(tt.params.git-committer)
+          - name: oidc-issuer
+            value:  https://keycloak-keycloak-system{{ .Values.app.cluster }}/auth/realms/sigstore
         pipelineRef:
           name: {{ .Values.app.name }}-build
         serviceAccountName: pipeline
