@@ -51,7 +51,7 @@ spec:
           - name: common-password-secret
             value: common-password-secret
           - name: rekor-url
-            value: http://rekor-server.rekor.svc
+            value: http://rekor-server.rekor-system.svc
           - name: tuf-mirror
             value: http://tuf-server.tuf-system.svc
           - name: certificate-identity
