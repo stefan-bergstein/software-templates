@@ -51,7 +51,7 @@ git config --local --edit
         fulcio = https://fulcio.apps.cluster-w4cfv.sandbox1117.opentlc.com
         issuer = https://keycloak-keycloak-system.apps.cluster-w4cfv.sandbox1117.opentlc.com/auth/realms/sigstore
         rekor = https://rekor.apps.cluster-w4cfv.sandbox1117.opentlc.com
-        clientid = sigstore
+        clientid = trusted-artifact-signer
 
 
 git config --local commit.gpgsign true
