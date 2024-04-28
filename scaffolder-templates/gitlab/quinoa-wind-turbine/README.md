@@ -48,9 +48,9 @@ If you use local IDE or the IDE provided in the VNC connected RHEL9 server , you
 git config --local --edit
 
 [gitsign]
-        fulcio = https://fulcio.apps.cluster-w4cfv.sandbox1117.opentlc.com
-        issuer = https://keycloak-keycloak-system.apps.cluster-w4cfv.sandbox1117.opentlc.com/auth/realms/sigstore
-        rekor = https://rekor.apps.cluster-w4cfv.sandbox1117.opentlc.com
+        fulcio = https://fulcio-server-trusted-artifact-signer.apps.cluster-6c6wk.sandbox879.opentlc.com
+        issuer = https://keycloak-keycloak-system.apps.cluster-6c6wk.sandbox879.opentlc.com/auth/realms/trusted-artifact-signer
+        rekor = https://rekor-server-trusted-artifact-signer.apps.cluster-6c6wk.sandbox879.opentlc.com
         clientid = trusted-artifact-signer
 
 
