@@ -13,6 +13,8 @@ spec:
     - name: output-image
       description: reference of the image that will get created
       default: {{ include "image.dev-url" . }}
+    - name: git-committer
+      description: Email of user who committed the change
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
@@ -44,12 +46,16 @@ spec:
             value: gitlab-gitlab{{ .Values.app.cluster }}
           - name: git-owner
             value: {{ .Values.git.org }}
-          - name: component-id
-            value: {{ .Values.app.name }}
           - name: common-password-secret
             value: common-password-secret
           - name: rekor-url
-            value: http://rekor-server.rekor.svc
+            value: http://rekor-server.trusted-artifact-signer.svc
+          - name: tuf-mirror
+            value: http://tuf.trusted-artifact-signer.svc
+          - name: certificate-identity
+            value: $(tt.params.git-committer)
+          - name: oidc-issuer
+            value:  https://keycloak-keycloak-system{{ .Values.app.cluster }}/auth/realms/trusted-artifact-signer
         pipelineRef:
           name: {{ .Values.app.name }}-build
         serviceAccountName: pipeline
