@@ -95,10 +95,10 @@ spec:
         values:
           component_id: ${{ parameters.component_id }}-${{ user.entity.metadata.name }}
           description: ${{ parameters.description }}
-          destination: https://gitlab-gitlab.apps.cluster-r7v52.sandbox2992.opentlc.com/${{ user.entity.metadata.name }}/${{parameters.component_id}}-gitops.git
-          source_repository: https://gitlab-gitlab.apps.cluster-r7v52.sandbox2992.opentlc.com/${{ user.entity.metadata.name }}/${{parameters.component_id}}.git
+          destination: https://gitlab-gitlab.apps.cluster-r7v52.sandbox2992.opentlc.com/development/${{parameters.component_id}}-gitops.git
+          source_repository: https://gitlab-gitlab.apps.cluster-r7v52.sandbox2992.opentlc.com/development/${{parameters.component_id}}.git
           repository_name: ${{parameters.component_id}}
-          git_owner: ${{ user.entity.metadata.name }}
+          git_owner: development
           cluster: ${{ parameters.cluster_id }}
           namespace: vote-app-dev-${{ user.entity.metadata.name }}
           image_registry: ${{ parameters.image_registry }}
@@ -116,7 +116,7 @@ spec:
       name: Publishing to Resource Repository
       action: publish:gitlab
       input:
-        repoUrl: "gitlab-gitlab.apps.cluster-r7v52.sandbox2992.opentlc.com?owner=${{ user.entity.metadata.name }}&repo=${{parameters.component_id}}-gitops"
+        repoUrl: "gitlab-gitlab.apps.cluster-r7v52.sandbox2992.opentlc.com?owner=development&repo=${{parameters.component_id}}-gitops"
         title: gitops resources for ${{ parameters.component_id }}
         description: gitops resources for ${{ parameters.component_id }}
         sourcePath: ./tenant-gitops
@@ -129,7 +129,7 @@ spec:
         appName: ${{ parameters.component_id }}-${{ user.entity.metadata.name }}-bootstrap
         argoInstance: main
         namespace: janus-argocd
-        repoUrl: https://gitlab-gitlab.apps.cluster-r7v52.sandbox2992.opentlc.com/${{ user.entity.metadata.name }}/${{ parameters.component_id }}-gitops.git
+        repoUrl: https://gitlab-gitlab.apps.cluster-r7v52.sandbox2992.opentlc.com/development/${{ parameters.component_id }}-gitops.git
         path: 'argocd/'
 
   output:
