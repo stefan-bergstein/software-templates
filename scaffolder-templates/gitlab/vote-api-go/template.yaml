@@ -64,10 +64,10 @@ spec:
           component_id: ${{ parameters.component_id }}-${{ user.entity.metadata.name }}
           description: ${{ parameters.description }}
           namespace: vote-app-dev-${{ user.entity.metadata.name }}
-          owner: ${{ user.entity.metadata.name }}
+          owner: development
           cluster: ${{ parameters.cluster_id }}
           host: gitlab-gitlab.apps.cluster-r7v52.sandbox2992.opentlc.com
-          destination: ${{ user.entity.metadata.name }}/${{ parameters.component_id }}
+          destination: development/${{ parameters.component_id }}
           quay_destination: ${{ parameters.image_organization}}/${{ parameters.component_id }}
           port: 9000
           user: ${{ user.entity.metadata.name }}
