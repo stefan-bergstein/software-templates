@@ -76,7 +76,7 @@ spec:
       name: Publish
       action: publish:gitlab
       input:
-        repoUrl: "gitlab-gitlab.apps.cluster-r7v52.sandbox2992.opentlc.com?owner=${{ user.entity.metadata.name }}&repo=${{parameters.component_id}}"
+        repoUrl: "gitlab-gitlab.apps.cluster-r7v52.sandbox2992.opentlc.com?owner=development&repo=${{parameters.component_id}}"
         repoVisibility: public
 
     - id: register
