@@ -1,0 +1,10 @@
+---
+openapi: 3.0.3
+info:
+  title: Gateway API
+  version: 1.0.0
+servers:
+- url: https://${{values.component_id}}-${{values.namespace}}${{values.cluster}}/
+  description: (RHDH component deployment)
+- url: http://localhost:8080
+  description: (localhost development / testing)

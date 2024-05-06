@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: software-templates
+  description: A collection of Backstage templates for Coolstore
+spec:
+  type: url
+  targets:
+    - catalog-spring-boot/template.yaml
+    - gateway-vertx/template.yaml
+    - inventory-quarkus/template.yaml
+    - web-nodejs/template.yaml
