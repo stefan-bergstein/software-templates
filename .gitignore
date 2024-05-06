@@ -26,8 +26,6 @@ svm.jar
 istio-1.1.1
 firebase*
 yarn*
-package*
-!package.json
 node_modules
 .firebaserc
 .firebase
