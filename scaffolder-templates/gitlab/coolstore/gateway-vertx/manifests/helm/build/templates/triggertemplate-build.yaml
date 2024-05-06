@@ -48,7 +48,7 @@ spec:
             value: {{ .Values.git.org }}
           - name: component-id
             value: {{ .Values.app.name }}
-         - name: common-password-secret
+          - name: common-password-secret
             value: common-password-secret
           - name: rekor-url
             value: http://rekor-server.trusted-artifact-signer.svc
