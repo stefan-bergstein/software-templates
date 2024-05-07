@@ -41,6 +41,7 @@ backstage.io/kubernetes-id: ${{values.component_id}}
 backstage.io/kubernetes-id: ${{values.component_id}}
 helm.sh/chart: {{ include "quarkus-template.chart" . }}
 app.openshift.io/runtime: python
+app.kubernetes.io/part-of: vote-app
 {{ include "quarkus-template.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
