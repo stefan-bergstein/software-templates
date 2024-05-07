@@ -1,18 +1,18 @@
 ---
 openapi: 3.0.3
 info:
-  title: quarkus-app API
-  version: 1.0-SNAPSHOT
+  title: Vote Backend API
+  version: 1.0
 servers:
-- url: http://localhost:8080
+- url: http://localhost:9000
   description: Auto generated value
-- url: http://0.0.0.0:8080
+- url: http://0.0.0.0:9000
   description: Auto generated value
 paths:
-  /hello:
+  /vote:
     get:
       tags:
-      - Example Resource
+      - Get Votes
       responses:
         "200":
           description: OK
@@ -20,3 +20,19 @@ paths:
             text/plain:
               schema:
                 type: string
+    post:
+      description: Vote for a category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object 
+              required:
+                - voter_id
+              properties:
+                voter_id:
+                  type: integer
+      responses:
+        '200':
+          description: Successfully voted for a category
