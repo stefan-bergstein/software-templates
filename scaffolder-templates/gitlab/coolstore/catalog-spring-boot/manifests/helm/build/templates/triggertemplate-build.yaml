@@ -46,6 +46,8 @@ spec:
             value: gitlab-gitlab{{ .Values.app.cluster }}
           - name: git-owner
             value: {{ .Values.git.org }}
+          - name: component-id
+            value: {{ .Values.app.name }}
           - name: common-password-secret
             value: common-password-secret
           - name: rekor-url
