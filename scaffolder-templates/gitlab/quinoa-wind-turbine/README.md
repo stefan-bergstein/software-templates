@@ -21,11 +21,11 @@ Game's architecture:
 ## How to use this template
 
 1. Order the [Red Hat Trusted Application Pipeline](https://demo.redhat.com/catalog?search=RHTAP&item=babylon-catalog-prod%2Fenterprise.redhat-tap-demo.prod) Lab from demo.redhat.com
-2. Install AMQ Streams Operator from OperatorHub
+2. Install *Red Hat Streams for Apache Kafka* from OperatorHub
 3. Replace in `template.yaml` the default hostname for `cluster_id`, Quay and Gitlab using your own cluster hostnames.
 4. Register the template to your Developer Hub catalog. Create->Register new component-> add the URL from your fork or Gitlab copy e.g. https://github.com/WindTurbineInc/software-templates/blob/master/scaffolder-templates/gitlab/quinoa-wind-turbine/template.yaml
 5. Use the template name Wind Turbine Software Supply Chain
-6. Enable commit verification in Step 3
+6. (Optional) Enable commit verification in Step 3 of the software template launch if you want to enable git commit signature and verification, see below on how to configure your IDE.
 
 The setup will install the game in three envs:
 
@@ -42,7 +42,9 @@ A possible flow would be:
 * Promote the change as V2 with a V2 tag and then promote to prod with a release for V2.
 * Enjoy!
 
-If you use local IDE or the IDE provided in the VNC connected RHEL9 server , you can sign commit as follows (change hosts with your cluster):
+### Commit signature
+
+If you have enable commit verification and you use local IDE or the IDE provided in the VNC connected RHEL9 server , you can sign commit as follows (change hosts with your cluster):
 
 ```bash
 git config --local --edit
