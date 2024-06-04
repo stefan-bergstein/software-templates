@@ -45,6 +45,12 @@ spec:
       type: string
     - name: rekor-url
       type: string
+    - name: tuf-mirror
+      type: string
+    - name: certificate-identity
+      type: string
+    - name: oidc-issuer
+      type: string
   tasks:
     - name: git-clone
       params:
