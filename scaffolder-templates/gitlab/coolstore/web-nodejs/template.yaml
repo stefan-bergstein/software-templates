@@ -107,6 +107,14 @@ spec:
               default: development
               enum:
                 - development
+            verify_commits:
+              title: Verify Commits
+              type: string
+              description: Verify Git repository commits using Red Hat’s Trusted Artifact Signer (TAS) service
+              default: disabled
+              enum:
+                - enabled
+                - disabled
 
   steps:
     - id: template
@@ -127,6 +135,7 @@ spec:
           destination: ${{ parameters.repo.owner }}/${{ parameters.namespace }}-${{ parameters.application_id }}
           quay_destination: ${{ parameters.image_organization}}/${{ parameters.namespace }}-${{ parameters.application_id }}
           port: 8080
+          verify_commits: ${{ parameters.repo.verify_commits }}
 
     - id: publish
       name: Publish
@@ -166,6 +175,7 @@ spec:
           repository_host: ${{ parameters.repo.host }}
           deployment_name: nodejs-template
           user: ${{ user.entity.metadata.name }}
+          verify_commits: ${{ parameters.repo.verify_commits }}
         targetPath: ./tenant-gitops
 
     - id: publish-gitops
