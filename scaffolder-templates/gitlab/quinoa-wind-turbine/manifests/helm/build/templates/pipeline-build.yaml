@@ -116,8 +116,6 @@ spec:
         value: http
       - name: CONTEXT_DIR
         value: .
-      runAfter:
-        - git-clone
       taskRef:
         kind: ClusterTask
         name: maven
