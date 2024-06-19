@@ -94,6 +94,12 @@ spec:
       description: Rekor host for transparency log lookups
       default: https://rekor.sigstore.dev
 
+    - name: CI_PROJECT_URL
+      type: string
+
+    - name: GIT_REVISION
+      type: string
+
   workspaces:
     - name: data
       description: The workspace where the snapshot spec json file resides
@@ -108,30 +114,35 @@ spec:
       secret:
         secretName: $(params.COMPONENT_ID)-docker-config
         items:
-          - key: .dockerconfigjson
-            path: config.json
-    - name: rekor-public-key
-      secret:
-        secretName: rekor-public-key
-        items:
-          - key: public.key
-            path: public.key
+        - key: .dockerconfigjson
+          path: config.json
 
   stepTemplate:
     env:
       - name: HOME
         value: "$(params.HOMEDIR)"
-      - name: SIGSTORE_REKOR_PUBLIC_KEY
-        value: /rekor/public.key
 
   steps:
+    - script: |
+        cat <<EOF | tee /workspace/images.yaml
+        ---
+        components:
+          - containerImage: "$(params.IMAGE)"
+            source:
+              git:
+                url: "$(params.CI_PROJECT_URL)"
+                revision: "$(params.GIT_REVISION)"
+        EOF
+      image: 'ubi8/ubi-minimal'
+      name: create-images-yaml
+      resources: {}
     - args:
         - >-
           oc get secret signing-secrets -n openshift-pipelines -o json > /workspace/signing-secrets
       command:
         - /bin/bash
-        - "-c"
-      image: "quay.io/openshift/origin-cli:latest"
+        - '-c'
+      image: 'quay.io/openshift/origin-cli:latest'
       name: extract-signing-secret
       resources: {}
     - image: quay.io/redhat-gpte/jq
@@ -146,6 +157,22 @@ spec:
       command: [ec]
       args:
         - version
+    - name: initialize-tuf
+      image: quay.io/enterprise-contract/ec-cli:362c6d6824695987bcdb7936c2efa35fd8ffb0e0
+      script: |-
+        set -euo pipefail
+
+        if [[ -z "${TUF_MIRROR:-}" ]]; then
+            echo 'TUF_MIRROR not set. Skipping TUF root initialization.'
+            exit
+        fi
+
+        echo 'Initializing TUF root...'
+        cosign initialize --mirror "${TUF_MIRROR}" --root "${TUF_MIRROR}/root.json"
+        echo 'Done!'
+      env:
+        - name: TUF_MIRROR
+          value: "$(params.TUF_MIRROR)"
     - name: validate
       image: quay.io/enterprise-contract/ec-cli:362c6d6824695987bcdb7936c2efa35fd8ffb0e0
       command: [ec]
@@ -153,8 +180,8 @@ spec:
         - validate
         - image
         - "--verbose"
-        - "--image"
-        - "$(params.IMAGE)"
+        - "--images"
+        - "/workspace/images.yaml"
         - "--policy"
         - "$(params.POLICY_CONFIGURATION)"
         - "--public-key"
@@ -178,10 +205,8 @@ spec:
         - "--output"
         - "json=$(params.HOMEDIR)/report-json.json"
       volumeMounts:
-        - name: docker-config
-          mountPath: $(params.HOMEDIR)/.docker
-        - name: rekor-public-key
-          mountPath: /rekor
+      - name: docker-config
+        mountPath: $(params.HOMEDIR)/.docker
     - name: report
       image: quay.io/enterprise-contract/ec-cli:362c6d6824695987bcdb7936c2efa35fd8ffb0e0
       command: [cat]
