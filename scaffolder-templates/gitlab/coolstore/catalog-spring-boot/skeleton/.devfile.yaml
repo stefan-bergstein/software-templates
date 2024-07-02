@@ -1,0 +1,50 @@
+schemaVersion: 2.1.0
+metadata:
+  name: catalog-spring-boot
+components:
+  - attributes:
+      che-theia.eclipse.org/vscode-preferences:
+        java.server.launchMode: Standard
+    container:
+      endpoints:
+        - exposure: none
+          name: debug
+          protocol: tcp
+          targetPort: 5005
+        - exposure: public
+          name: 8080-tcp
+          protocol: http
+          targetPort: 8080
+      image: 'quay.io/devfile/universal-developer-image:ubi8-latest'
+      memoryLimit: 2Gi
+      volumeMounts:
+        - name: m2
+          path: /home/user/.m2
+    name: tools
+  - name: m2
+    volume:
+      size: 1G
+commands:
+  - exec:
+      commandLine: mvn clean install
+      workingDir: '${PROJECT_SOURCE}'
+      component: tools
+      group:
+        isDefault: true
+        kind: build
+    id: maven-build
+  - exec:
+      commandLine: java -jar target/*.jar
+      workingDir: '${PROJECT_SOURCE}'
+      component: tools
+      group:
+        isDefault: true
+        kind: run
+    id: run-with-hsqldb
+  - exec:
+      commandLine: 'java -jar -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 target/*.jar'
+      workingDir: '${PROJECT_SOURCE}'
+      component: tools
+      group:
+        kind: run
+    id: run-debug

@@ -1,0 +1,35 @@
+schemaVersion: 2.2.0
+metadata:
+  generateName: vote-ui-
+components:
+  - name: python
+    container:
+      image: quay.io/devfile/universal-developer-image:ubi8-latest
+      env:
+        - name: VOTING_API_SERVICE_HOST
+          value: vote-api
+        - name: VOTING_API_SERVICE_PORT
+          value: '9000'
+      cpuRequest: '30m'
+      memoryRequest: '256Mi'
+      cpuLimit: '1'
+      memoryLimit: '2Gi'
+      endpoints:
+        - name: vote-ui
+          targetPort: 8080
+commands:
+  - id: run-python-app
+    exec:
+      label: Run Python App
+      component: python
+      commandLine: python app.py
+  - id: install-dependencies
+    exec:
+      label: Install Dependencies
+      component: python
+      commandLine: pip install --user -r requirements.txt
+  - id: build-image
+    exec:
+      label: Build Container Image
+      component: python
+      commandLine: podman build .

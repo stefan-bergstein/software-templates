@@ -1,0 +1,8 @@
+{
+    "COOLSTORE_CONFIG": {
+        "API_ENDPOINT": "localhost:8090",
+        "SECURE_API_ENDPOINT": "localhost:8443",
+        "SSO_ENABLED": "false",
+        "PRODUCT_REFRESH_INTERVAL": 5000
+    }
+}

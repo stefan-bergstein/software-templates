@@ -4,7 +4,6 @@ audit.log
 .cache/
 *.log
 
-docs/
 gh-pages/
 dependency-reduced-pom.xml
 svm.jar
@@ -24,12 +23,13 @@ svm.jar
 *.ipr
 
 .DS_Store
-.vscode
 istio-1.1.1
 firebase*
 yarn*
-package*
-!package.json
 node_modules
 .firebaserc
 .firebase
+
+.vscode
+.quarkus
+**/.quinoa

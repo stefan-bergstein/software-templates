@@ -1,0 +1,12 @@
+---
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: vote-ui
+spec:
+  serviceAccountName: pipeline
+  triggers:
+  - bindings:
+    - ref: vote-ui
+    template:
+      ref: vote-ui
